@@ -15,7 +15,7 @@
         ]
     },
     "subscriptions": {
-        "subscriptions": [{
+        "data": [{
             "id": "123456",
             "emailMe": "Y",
             "uic": "",
