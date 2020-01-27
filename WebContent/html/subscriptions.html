@@ -16,6 +16,7 @@
 <table id="example" class="display" style="width:100%">
         <thead>
             <tr>
+            	<th>Action</th>
                 <th>id</th>
                 <th>uic</th>
                 <th>alertMessage</th>
@@ -25,6 +26,7 @@
         </thead>
         <tfoot>
             <tr>
+            	<th>Action</th>
                 <th>id</th>
                 <th>uic</th>
                 <th>alertMessage</th>
@@ -35,7 +37,18 @@
 <script>
 $(document).ready(function() {
     $('#example').DataTable( {
-        "ajax": 'http://my-json-server.typicode.com/lehotskymike/dummy/alerts'
+        "ajax": 'http://my-json-server.typicode.com/lehotskymike/dummy/alerts',
+        "columns": [
+        	{ "data": "xxx",
+        	  "render": function ( data, type, row, meta ) {
+        		  //console.log("render delete...data, type, row, meta",data, type, row, meta);
+			      return '<a href="'+data+'">[DELETE]</a>';
+			    }},
+            { "data": "id" },
+            { "data": "uic" },
+            { "data": "alertMessage" },
+            { "data": "alertDate" }
+          ]
     } );
 } );
 
