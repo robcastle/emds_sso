@@ -31,6 +31,7 @@
             "p3": "",
             "p4": "",
             "p5": "",
+            "p6": "",
             "anyChangeP": "",
             "s1": "",
             "s2": "",
@@ -100,7 +101,8 @@
             "reportTypeDeployed": "",
             "reportTypeDUIC": "",
             "reportTypeDRU": "",
-            "reportTypeValidation": ""
+            "reportTypeValidation": "",
+            "reportTypeChanged":""
         }]
     },
     "users": {
