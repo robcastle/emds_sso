@@ -1,0 +1,192 @@
+{
+    "alerts": {
+        "alerts": [{
+                "id": "123456",
+                "uic": "A123456",
+                "alertMessage": "This is a message",
+                "alertDate": "2020-01-01"
+            },
+            {
+                "id": "789011",
+                "uic": "B123456",
+                "alertMessage": "This is a message",
+                "alertDate": "2020-02-01"
+            }
+        ]
+    },
+    "subscriptions": {
+        "subscriptions": [{
+            "id": "123456",
+            "emailMe": "Y",
+            "uic": "",
+            "unitName": "",
+            "c1": "",
+            "c2": "",
+            "c3": "",
+            "c4": "",
+            "c5": "",
+            "anyChangeC": "",
+            "p1": "",
+            "p2": "",
+            "p3": "",
+            "p4": "",
+            "p5": "",
+            "anyChangeP": "",
+            "s1": "",
+            "s2": "",
+            "s3": "",
+            "s4": "",
+            "s5": "",
+            "s6": "",
+            "anyChangeS": "",
+            "r1": "",
+            "r2": "",
+            "r3": "",
+            "r4": "",
+            "r5": "",
+            "r6": "",
+            "anyChangeR": "",
+            "t1": "",
+            "t2": "",
+            "t3": "",
+            "t4": "",
+            "t5": "",
+            "t6": "",
+            "anyChangeT": "",
+            "a1": "",
+            "a2": "",
+            "a3": "",
+            "a4": "",
+            "anyChangeA": "",
+            "amm1": "",
+            "amm2": "",
+            "amm3": "",
+            "amm4": "",
+            "ammWatch": "",
+            "ame1": "",
+            "ame2": "",
+            "ame3": "",
+            "ame4": "",
+            "ameWatch": "",
+            "anyChangeAsgdMsn": "",
+            "asgdMsnY": "",
+            "asgdMsnQ": "",
+            "asgdMsnN": "",
+            "srPrepare": "",
+            "srReady": "",
+            "srMission": "",
+            "srOther": "",
+            "anyChangeSr": "",
+            "anyChangeCurrentPlan": "",
+            "overallY": "",
+            "overallQ": "",
+            "overallN": "",
+            "anyChangeOverAll": "",
+            "anyChangePresentLocation": "",
+            "anyChangeUnitReported": "",
+            "asgdPerDir": "",
+            "asgdPer": "",
+            "deplPerDir": "",
+            "deplPer": "",
+            "sgPerDir": "",
+            "sgPer": "",
+            "asgdMosSkilsPerDir": "",
+            "asgdMosSkilsPer": "",
+            "ac": "",
+            "arng": "",
+            "usar": "",
+            "aps": "",
+            "reportTypeReg": "",
+            "reportTypeDeployed": "",
+            "reportTypeDUIC": "",
+            "reportTypeDRU": "",
+            "reportTypeValidation": ""
+        }]
+    },
+    "users": {
+        "users": [{
+            "active": "t",
+            "cn": "",
+            "firstName": "t",
+            "grade": "t",
+            "lastName": "t",
+            "state": "MD",
+            "uid": "alex.ctr",
+            "username": "alex.ctr",
+            "niprEmail": "",
+            "officeSymbol": "",
+            "organization": "",
+            "reasonForAccess": "",
+            "siprEmail": "",
+            "siprTokenCn": "",
+            "siprTokenDn": "",
+            "siprtTokenPCC": "",
+            "siprTokenUPN": "",
+            "subOrganization": "",
+            "supervisorEmail": "",
+            "supervisorPhone": "",
+            "supervisorName": "",
+            "telephoneNumber": "",
+            "townOfBirth": "",
+            "uic": "",
+            "uuid": "",
+            "lastModified": "",
+            "roles": ["ADMIN", "APPROVER", "USER"]
+        }]
+    },
+    "orgs": {
+        "orgs": [{
+                "id": "1",
+                "displayName": "A",
+                "description": "This is a description",
+                "suborganizations": [{
+                        "id": "A12345",
+                        "displayName": "A1",
+                        "description": "This is a description"
+                    },
+                    {
+                        "id": "A67890",
+                        "displayName": "A2",
+                        "description": "This is a description"
+                    }
+                ]
+            },
+            {
+                "id": "2",
+                "displayName": "B",
+                "description": "This is a description",
+                "suborganizations": [{
+                        "id": "B12345",
+                        "displayName": "B1",
+                        "description": "This is a description"
+                    },
+                    {
+                        "id": "B67890",
+                        "displayName": "B2",
+                        "description": "This is a description"
+                    }
+                ]
+            },
+            {
+                "id": "3",
+                "displayName": "C",
+                "description": "This is a description",
+                "suborganizations": [{
+                        "id": "C12345",
+                        "displayName": "C1",
+                        "description": "This is a description"
+                    },
+                    {
+                        "id": "C67890",
+                        "displayName": "C2",
+                        "description": "This is a description"
+                    }
+                ]
+            }
+
+        ]
+    },
+    "roles": {
+        "roles": ["ADMIN", "APPROVER", "USER"]
+    }
+}
