@@ -17,10 +17,10 @@
 <h1 id="viewUserHeader" style="display: none;">View User</h1>
 <div id="viewUserInfo" style="display: none;">
 	<div style="display: inline">
-		<button>Approve</button> 
-		<button>Deny</button> 
-		<button>Send Approval Email</button> 
-		<button>Close</button>
+		<button onClick="approve()">Approve</button> 
+		<button onClick="deny()">Deny</button> 
+		<button onClick="sendApproval()">Send Approval Email</button> 
+		<button onClick="toggleView(false)">Close</button>
 	</div>
 	<div>
 	<table>
@@ -156,6 +156,19 @@
     </table>
 <script>
 var table = null;
+var selectedUser = null;
+
+function approve() {
+	console.log("Approved " + selectedUser.uuid);
+}
+
+function deny() {
+	console.log("Denied " + selectedUser.uuid);
+}
+
+function sendApproval() {
+	console.log("Email sent " + selectedUser.uuid);
+}
 
 function toggleView(foo) {
 	if(foo) {
@@ -169,6 +182,7 @@ function toggleView(foo) {
 		document.getElementById("approveAccountListHeader").style.display = "block";
 		document.getElementById("viewUserHeader").style.display = "none";
 		document.getElementById("viewUserInfo").style.display = "none";
+		selectedUser = null;
 	}
 }
 	
@@ -178,7 +192,7 @@ function toggleView(foo) {
 function approveUserView(row) {
     var data=JSON.parse(decodeURIComponent(row));
     toggleView(true);
-    console.log(data);
+	selectedUser = JSON.parse(decodeURIComponent(row));
     document.getElementById("viewUserHeader").innerHTML = "View User: " + data.firstName + " " + data.lastName;
     document.getElementById("uuid").innerHTML = data.uuid;
     document.getElementById("pcc").innerHTML = data.siprtTokenPCC;
