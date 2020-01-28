@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<link rel="stylesheet" type="text/css" href="/emds_sso/js/datatables.min.css">
+<link href="/emds_sso/js/fontawesome-free-5.12.0-web/css/all.css"" rel="stylesheet"> <!--load all styles -->
+<script src="/emds_sso/js/jquery-1.9.1.min.js"></script>
+<script src="/emds_sso/js/datatables.min.js"></script>
+
+<title>Notifications</title>
+</head>
+<body>
+<h1>Notifications</h1>
+<table id="notification-list" class="display" style="width:100%">
+
+        <thead>
+              <tr>
+            	<th>Action</th>
+                <th>UIC</th>
+                <th>Date</th>
+                <th>Message</th>
+
+         
+            </tr>
+
+        </thead>
+
+        <tfoot>
+            <tr>
+            	<th>Action</th>
+                <th>UIC</th>
+                <th>Date</th>
+                <th>Message</th>   
+            </tr>
+        </tfoot>
+    </table>
+<script>
+
+var table = null;
+$(document).ready(function() {
+	
+    // Setup - add a text input to each header cell
+    $('#notification-list thead th').each( function () {
+        var title = $(this).text();
+        if(title !== 'Action'){
+        	$(this).html( '<div><div>' + title + '</div><input type="text" placeholder="Search '+title+'" /></div>' );
+        }
+        
+    } );	
+	
+	// Intialize the datatable
+    table = $('#notification-list').DataTable( {
+
+    	/* CHANGE THE API FOR PRODUCTION */ 	
+        "ajax": "/emds_sso/mockapi/alerts.json",
+        "columns": [
+        	{ "data": "id",
+        	  "render": function ( data, type, row, meta ) {
+        		  console.log("render delete...data, type, row, meta",data, type, row, meta);
+			      return '<a  href="javascript:void(0);" onclick="deleteNotification(' + data + ');"><i class="fas fa-trash-alt"></i></a>';
+			    }},
+        	{"data":"uic"},
+        	{"data":"alertDate"},
+        	{"data":"alertMessage"}
+
+          ]
+    } );
+    
+
+ 
+    // Apply the search
+    table.columns().every( function () {
+        var that = this;
+ 
+        $( 'input', this.header() ).on( 'keyup change clear', function () {
+            if ( that.search() !== this.value ) {
+                that
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    } );   
+    
+
+});
+
+/**
+ * Function to refresh the list
+ */
+const refreshNotificationList = (data, textStatus) => { 
+	table.ajax.reload();
+}
+
+/** Function to remove a row
+ * 
+ */
+const deleteNotification = (id) => {
+	console.log("delete notification ==>", id);
+	/* CHANGE THE API FOR PRODUCTION */ 
+    const url = '/emds_sso/mockapi/alerts.json';
+    const param = {
+        remove: id
+    };
+
+    $.ajax({
+        url: url,
+        method: "GET", //send it through get method
+        data: param,
+        success: refreshNotificationList,
+        error: (jqXHR, textStatus, errorThrown) => {
+        	alert("Error " + textStatus + "\n" + errorThrown);
+        }
+    });	
+	
+};  
+</script>
+</body>
+</html>

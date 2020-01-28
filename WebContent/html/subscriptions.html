@@ -213,6 +213,7 @@ $(document).ready(function() {
     } );	
 	
 	
+    // Initialize the datatable
     table = $('#subscription-list').DataTable( {
 
     	/* CHANGE THE API FOR PRODUCTION */ 	
@@ -333,10 +334,16 @@ $(document).ready(function() {
 
 });
 
+/**
+ * Function to refresh the list
+ */
 const refreshSubscriptionList = (data, textStatus) => { 
 	table.ajax.reload();
 }
 
+/**
+ * Function to remove a row
+ */
 const deleteSubscription = (id) => {
 	console.log("delete subscription ==>", id);
 	/* CHANGE THE API FOR PRODUCTION */ 
