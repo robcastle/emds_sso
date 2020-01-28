@@ -7,52 +7,54 @@
 <script src="/emds_sso/js/datatables.min.js"></script>
 
 
-<title>New User Accounts</title>
+<title>Manage User Accounts</title>
 </head>
 <body>
 <span>Insert Navigation Menu Here</span>
 
-<h1 id="approveAccountListHeader">New User Accounts</h1>
+<h1 id="manageAccountListHeader">Manage User Accounts</h1>
 
-<h1 id="viewUserHeader" style="display: none;">View User<div id='xuid'></div></h1>
+<h1 id="viewUserHeader" style="display: none;">Edit User<div id='xuid'></div></h1>
 
-<table id="approveAccountList" class="display" style="width:100%">
+<table id="manageAccountList" class="display" style="width:100%">
         <thead>
             <tr>
-            	<th>Review</th>
+            	<th>Edit</th>
                 <th>First Name</th>
                 <th>Last Name</th>
-                <th>UIC</th>
-                <th>Office Symbol</th>
+                <th>User ID</th>
                 <th>Organization</th>
                 <th>Sub Organization</th>
-                <th>Registration Date</th>
+                <th>SIPR Email Address</th>
+            	<th>PCC</th>
+            	<th>Active User</th>
 
             </tr>
         </thead>
         <tfoot>
             <tr>
-            	<th>Review</th>
+            	<th>Edit</th>
                 <th>First Name</th>
                 <th>Last Name</th>
-                <th>UIC</th>
-                <th>Office Symbol</th>
+                <th>User ID</th>
                 <th>Organization</th>
                 <th>Sub Organization</th>
-                <th>Registration Date</th>
+                <th>SIPR Email Address</th>
+            	<th>PCC</th>
+            	<th>Active User</th>
             </tr>
         </tfoot>
     </table>
 <script>
 function toggleView(foo) {
 	if(foo) {
-		document.getElementById("approveAccountList_wrapper").style.display = "none";
-		document.getElementById("approveAccountListHeader").style.display = "none";
+		document.getElementById("manageAccountList_wrapper").style.display = "none";
+		document.getElementById("manageAccountListHeader").style.display = "none";
 		document.getElementById("viewUserHeader").style.display = "block";
 	}
 	else {
-		document.getElementById("approveAccountList_wrapper").style.display = "block";
-		document.getElementById("approveAccountListHeader").style.display = "block";
+		document.getElementById("manageAccountList_wrapper").style.display = "block";
+		document.getElementById("manageAccountListHeader").style.display = "block";
 		document.getElementById("viewUserHeader").style.display = "none";
 	}
 }
@@ -61,24 +63,25 @@ function toggleView(foo) {
  * Function switch view
  */
 
-function approveUserView(row) {
+function manageUserView(row) {
  	var data=JSON.parse(decodeURIComponent(row));
 	toggleView(true);
 	console.log("row data=",data);
 }
 
+var table = null;
 $(document).ready(function() {
 	// Setup - add a text input to each footer cell
-    $('#approveAccountList thead th').each( function () {
+    $('#manageAccountList thead th').each( function () {
         var title = $(this).text();
-        if(title !== 'Action'){
+        if(title !== 'Edit'){
         	$(this).html( '<div><div>' + title + '</div><input type="text" placeholder="Search '+title+'" /></div>' );
         }
         
     } );
 	
-	var table = $('#approveAccountList').DataTable( {
-        "ajax": 'http://my-json-server.typicode.com/lehotskymike/dummy/users',
+	table = $('#manageAccountList').DataTable( {
+        "ajax": '/emds_sso/mockapi/users.json',
 //         "dataSrc" : (json) => {
 //         	console.log(json);
         	
@@ -87,15 +90,16 @@ $(document).ready(function() {
         	{ "data": "uid",
         	  "render": function ( data, type, row, meta ) {
         		  console.log("render delete...data, type, row, meta",data, type, row, meta, row.uid);
-			      return '<a  href="javascript:void(0);" onclick="approveUserView(\'' + encodeURIComponent(JSON.stringify(row)) + '\')"><i class="fas fa-check"></i></a>';
+			      return '<a  href="javascript:void(0);" onclick="manageUserView(\'' + encodeURIComponent(JSON.stringify(row)) + '\')"><i class="far fa-edit"></i></a>';
 			    }},
             { "data": "firstName" },
             { "data": "lastName" },
-            { "data": "uic" },
-            { "data": "officeSymbol" },
+            { "data": "username" },
             { "data": "organization" },
             { "data": "subOrganization" },
-            { "data": "lastModified" }
+            { "data": "siprEmail" },
+            { "data": "siprtTokenPCC" },
+            { "data": "active" }
           ]
     } );
 
@@ -117,7 +121,7 @@ $(document).ready(function() {
 /**
  * Function to refresh the list
  */
-const refreshSubscriptionList = (data, textStatus) => { 
+const refreshManageAccountList = (data, textStatus) => { 
 	table.ajax.reload();
 }
 

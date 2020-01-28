@@ -1,0 +1,69 @@
+{
+	"data": [
+		{
+			"active": "false",
+			"cn": "",
+			"firstName": "Alex",
+			"grade": "COL",
+			"lastName": "Deuel",
+			"state": "MD",
+			"uid": "alex.ctr",
+			"username": "alexander.i.deuel",
+			"niprEmail": "alexander.i.deuel.ctr@mail.mil",
+			"officeSymbol": "XXX",
+			"organization": "BIG ORG",
+			"reasonForAccess": "STUFF",
+			"siprEmail": "alexander.i.deuel.ctr@smail.mil",
+			"siprTokenCn": "aaa",
+			"siprTokenDn": "bbb",
+			"siprtTokenPCC": "ccc",
+			"siprTokenUPN": "ddd",
+			"subOrganization": "SUB ORG",
+			"supervisorEmail": "supervisor.i.deuel.ctr@smail.mil",
+			"supervisorPhone": "111-222-3333",
+			"supervisorName": "Jess McCaan",
+			"telephoneNumber": "",
+			"townOfBirth": "Small Town",
+			"uic": "WXXXX",
+			"uuid": "1234567890",
+			"lastModified": "",
+			"roles": [
+				"ADMIN",
+				"APPROVER",
+				"USER"
+			]
+		},{
+			"active": "false",
+			"cn": "",
+			"firstName": "Kim",
+			"grade": "4 STAR GENERAL",
+			"lastName": "Lawrence",
+			"state": "MD",
+			"uid": "kim.ctr",
+			"username": "kim.i.lawrence",
+			"niprEmail": "kim.i.lawrence.ctr@mail.mil",
+			"officeSymbol": "XXX",
+			"organization": "BIG BIG ORG",
+			"reasonForAccess": "STUFF",
+			"siprEmail": "kim.i.lawrence.ctr@smail.mil",
+			"siprTokenCn": "aaa",
+			"siprTokenDn": "bbb",
+			"siprtTokenPCC": "ccc",
+			"siprTokenUPN": "ddd",
+			"subOrganization": "SUB BIG ORG",
+			"supervisorEmail": "supervisor.i.deuel.ctr@smail.mil",
+			"supervisorPhone": "111-222-3333",
+			"supervisorName": "Eric Crenshaw",
+			"telephoneNumber": "",
+			"townOfBirth": "Smaller Town",
+			"uic": "WXXXY",
+			"uuid": "1234567899",
+			"lastModified": "",
+			"roles": [
+				"ADMIN",
+				"APPROVER",
+				"USER"
+			]
+		}
+	]
+}
