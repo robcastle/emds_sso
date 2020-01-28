@@ -16,6 +16,118 @@
 
 <h1 id="viewUserHeader" style="display: none;">Edit User<div id='xuid'></div></h1>
 
+<div id="viewUserInfo" style="display: none;">
+	<div style="display: inline">
+		<button onClick="approve()">Approve</button> 
+		<button onClick="deny()">Deny</button> 
+		<button onClick="sendApproval()">Send Approval Email</button> 
+		<button onClick="toggleView(false)">Close</button>
+	</div>
+	<div>
+	<table>
+		<tr style=" background-color: black;"><td>
+			<span style="color: white;">User Information</span>
+			</td>
+		</tr>
+
+		<tr>
+		<td>UUID:</td>
+		<td><div id="uuid"></div></td>
+		</tr>
+		
+		<tr>
+		<td>PCC:</td>
+		<td><div id="pcc"></div></td>
+		</tr>
+		
+		<tr>
+		<td>User Id:</td>
+		<td><div id="uid"></div></td>
+		</tr>
+		
+		<tr>
+		<td>First Name:</td>
+		<td><div id="firstName"></div></td>
+		</tr>
+		
+		<tr>
+		<td>Last Name:</td>
+		<td><div id="lastName"></div></td>
+		</tr>
+		
+		<tr>
+		<td>Justification for Access:</td>
+		<td><div id="justification"></div></td>
+		</tr>
+		
+		<tr>
+		<td>Registration Date:</td>
+		<td><div id="regDate"></div></td>
+		</tr>
+		
+		<tr style=" background-color: black;"><td>
+			<span style="color: white;">Organizational Information</span>
+			</td>
+		</tr>
+		
+		<tr>
+		<td>UIC:</td>
+		<td><div id="uic"></div></td>
+		</tr>
+		
+		<tr>
+		<td>Office Symbol:</td>
+		<td><div id="officeSym"></div></td>
+		</tr>
+		
+		<tr>
+		<td>Organization:</td>
+		<td><div id="org"></div></td>
+		</tr>
+		
+		<tr>
+		<td>Sub Organization:</td>
+		<td><div id="subOrg"></div></td>
+		</tr>
+		
+		<tr style=" background-color: black;"><td>
+			<span style="color: white;">Contact Information</span>
+			</td>
+		</tr>
+		
+		<tr>
+		<td>NIPR Email:</td>
+		<td><div id="niprEmail"></div></td>
+		</tr>
+		
+		<tr>
+		<td>SIPR Email:</td>
+		<td><div id="siprEmail"></div></td>
+		</tr>
+		
+		<tr>
+		<td>Telephone Number:</td>
+		<td><div id="teleNum"></div></td>
+		</tr>
+		
+		<tr>
+		<td>Government Supervisor Name:</td>
+		<td><div id="govSupName"></div></td>
+		</tr>
+		
+		<tr>
+		<td>Government Supervisor Phone:</td>
+		<td><div id="govSupPhone"></div></td>
+		</tr>
+		
+		<tr>
+		<td>Government Supervisor Email:</td>
+		<td><div id="govSupEmail"></div></td>
+		</tr>
+		
+	</table>
+	</div>
+</div>
 <table id="manageAccountList" class="display" style="width:100%">
         <thead>
             <tr>
@@ -46,16 +158,34 @@
         </tfoot>
     </table>
 <script>
+
+var table = null;
+var selectedUser = null;
+
+function approve() {
+	console.log("Approved " + selectedUser.uuid);
+}
+
+function deny() {
+	console.log("Denied " + selectedUser.uuid);
+}
+
+function sendApproval() {
+	console.log("Email sent " + selectedUser.uuid);
+}
 function toggleView(foo) {
 	if(foo) {
 		document.getElementById("manageAccountList_wrapper").style.display = "none";
 		document.getElementById("manageAccountListHeader").style.display = "none";
 		document.getElementById("viewUserHeader").style.display = "block";
+		document.getElementById("viewUserInfo").style.display = "block";
 	}
 	else {
 		document.getElementById("manageAccountList_wrapper").style.display = "block";
 		document.getElementById("manageAccountListHeader").style.display = "block";
 		document.getElementById("viewUserHeader").style.display = "none";
+		document.getElementById("viewUserInfo").style.display = "none";
+		selectedUser = null;
 	}
 }
 	
@@ -67,9 +197,29 @@ function manageUserView(row) {
  	var data=JSON.parse(decodeURIComponent(row));
 	toggleView(true);
 	console.log("row data=",data);
+	selectedUser = JSON.parse(decodeURIComponent(row));
+    document.getElementById("viewUserHeader").innerHTML = "View User: " + data.firstName + " " + data.lastName;
+    document.getElementById("uuid").innerHTML = data.uuid;
+    document.getElementById("pcc").innerHTML = data.siprtTokenPCC;
+    document.getElementById("uid").innerHTML = data.uid;
+    document.getElementById("firstName").innerHTML = data.firstName;
+    document.getElementById("lastName").innerHTML = data.lastName;
+    document.getElementById("justification").innerHTML = data.reasonForAccess;
+    document.getElementById("regDate").innerHTML = data.lastModified;
+    document.getElementById("uic").innerHTML = data.uic;
+    document.getElementById("officeSym").innerHTML = data.officeSymbol;
+    document.getElementById("org").innerHTML = data.organization;
+    document.getElementById("subOrg").innerHTML = data.subOrganization;
+    document.getElementById("niprEmail").innerHTML = data.niprEmail;
+    document.getElementById("siprEmail").innerHTML = data.siprEmail;
+    document.getElementById("teleNum").innerHTML = data.telephoneNumber;
+    document.getElementById("govSupName").innerHTML = data.supervisorName;
+    document.getElementById("govSupPhone").innerHTML = data.supervisorPhone;
+    document.getElementById("govSupEmail").innerHTML = data.supervisorEmail;	
+	
 }
 
-var table = null;
+
 $(document).ready(function() {
 	// Setup - add a text input to each footer cell
     $('#manageAccountList thead th').each( function () {
