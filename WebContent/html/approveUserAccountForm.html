@@ -1,8 +1,8 @@
-<!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
 <link rel="stylesheet" type="text/css" href="/emds_sso/js/datatables.min.css">
+<link href="/emds_sso/js/fontawesome-free-5.12.0-web/css/all.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <script src="/emds_sso/js/datatables.min.js"></script>
 
@@ -44,21 +44,43 @@
         </tfoot>
     </table>
 <script>
-function toggleView() {
+function toggleView(foo) {
+	if(foo) {
 		document.getElementById("approveAccountList_wrapper").style.display = "none";
 		document.getElementById("approveAccountListHeader").style.display = "none";
 		document.getElementById("viewUserHeader").style.display = "block";
-		
-		
 	}
+	else {
+		document.getElementById("approveAccountList_wrapper").style.display = "block";
+		document.getElementById("approveAccountListHeader").style.display = "block";
+		document.getElementById("viewUserHeader").style.display = "none";
+	}
+}
 	
+/**
+ * Function switch view
+ */
+function approveUserView(row) {
+	toggleView(true);
+	console.log(row);
+}
+
 $(document).ready(function() {
+	// Setup - add a text input to each footer cell
+    $('#approveAccountList thead th').each( function () {
+        var title = $(this).text();
+        if(title !== 'Action'){
+        	$(this).html( '<div><div>' + title + '</div><input type="text" placeholder="Search '+title+'" /></div>' );
+        }
+        
+    } );
+	
 	var table = $('#approveAccountList').DataTable( {
         "ajax": 'http://my-json-server.typicode.com/lehotskymike/dummy/users',
         "columns": [
         	{ "data": "row",
         	  "render": function ( data, type, row, meta ) {
-			      return '<button  onClick=toggleView()>View User</button>';
+			      return '<a  href="javascript:void(0);" onclick="approveUserView(' + data + ')"><i class="fas fa-check"></i></a>';
 			    }},
             { "data": "firstName" },
             { "data": "lastName" },
@@ -70,13 +92,27 @@ $(document).ready(function() {
           ]
     } );
 
-    $('#approveAccountList tbody').on( 'click', 'button', function () {
-        var data = table.row( $(this).parents('tr') ).data();
-		console.log(data);
-    } );
+	 // Apply the search
+    table.columns().every( function () {
+        var that = this;
+ 
+        $( 'input', this.header() ).on( 'keyup change clear', function () {
+            if ( that.search() !== this.value ) {
+                that
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    } );   
     
 } );
 
+/**
+ * Function to refresh the list
+ */
+const refreshSubscriptionList = (data, textStatus) => { 
+	table.ajax.reload();
+}
 
 
 </script>
