@@ -10,6 +10,14 @@
 <title>Subscriptions</title>
 </head>
 <body>
+<!-- KIM: ADD THIS PARAMETER TO REMOVE THE SHOW ENTRIES DROPDOWN -->
+<style>
+.dataTables_wrapper .dataTables_filter {
+float: right;
+text-align: right;
+visibility: hidden;
+}
+</style>
 <h1>Subscriptions</h1>
 <table id="subscription-list" class="display" style="width:100%">
 
@@ -218,6 +226,8 @@ $(document).ready(function() {
 
     	/* CHANGE THE API FOR PRODUCTION */ 	
         "ajax": "/emds_sso/mockapi/subscriptions.json",
+        /* KIM: ADD THIS PARAMETER TO REMOVE THE SHOW ENTRIES DROPDOWN */
+        "bLengthChange": false,
         "columns": [
         	{ "data": "id",
         	  "render": function ( data, type, row, meta ) {
