@@ -14,13 +14,11 @@
 
 <h1 id="manageAccountListHeader">Manage User Accounts</h1>
 
-<h1 id="viewUserHeader" style="display: none;">Edit User<div id='xuid'></div></h1>
+<h1 id="viewUserHeader" style="display: none;">Edit User</h1>
 
 <div id="viewUserInfo" style="display: none;">
 	<div style="display: inline">
-		<button onClick="approve()">Approve</button> 
-		<button onClick="deny()">Deny</button> 
-		<button onClick="sendApproval()">Send Approval Email</button> 
+		<button onClick="save()">Save</button> 
 		<button onClick="toggleView(false)">Close</button>
 	</div>
 	<div>
@@ -32,37 +30,37 @@
 
 		<tr>
 		<td>UUID:</td>
-		<td><div id="uuid"></div></td>
+		<td><input id="uuid"></input></td>
 		</tr>
 		
 		<tr>
 		<td>PCC:</td>
-		<td><div id="pcc"></div></td>
+		<td><input id="pcc"></input></td>
 		</tr>
 		
 		<tr>
 		<td>User Id:</td>
-		<td><div id="uid"></div></td>
+		<td><input id="uid"></input></td>
 		</tr>
 		
 		<tr>
 		<td>First Name:</td>
-		<td><div id="firstName"></div></td>
+		<td><input id="firstName"></input></td>
 		</tr>
 		
 		<tr>
 		<td>Last Name:</td>
-		<td><div id="lastName"></div></td>
+		<td><input id="lastName"></input></td>
 		</tr>
 		
 		<tr>
 		<td>Justification for Access:</td>
-		<td><div id="justification"></div></td>
+		<td><input id="justification"></input></td>
 		</tr>
 		
 		<tr>
 		<td>Registration Date:</td>
-		<td><div id="regDate"></div></td>
+		<td><input id="regDate"></input></td>
 		</tr>
 		
 		<tr style=" background-color: black;"><td>
@@ -72,22 +70,22 @@
 		
 		<tr>
 		<td>UIC:</td>
-		<td><div id="uic"></div></td>
+		<td><input id="uic"></input></td>
 		</tr>
 		
 		<tr>
 		<td>Office Symbol:</td>
-		<td><div id="officeSym"></div></td>
+		<td><input id="officeSym"></input></td>
 		</tr>
 		
 		<tr>
 		<td>Organization:</td>
-		<td><div id="org"></div></td>
+		<td><input id="org"></input></td>
 		</tr>
 		
 		<tr>
 		<td>Sub Organization:</td>
-		<td><div id="subOrg"></div></td>
+		<td><input id="subOrg"></input></td>
 		</tr>
 		
 		<tr style=" background-color: black;"><td>
@@ -97,32 +95,32 @@
 		
 		<tr>
 		<td>NIPR Email:</td>
-		<td><div id="niprEmail"></div></td>
+		<td><input id="niprEmail"></input></td>
 		</tr>
 		
 		<tr>
 		<td>SIPR Email:</td>
-		<td><div id="siprEmail"></div></td>
+		<td><input id="siprEmail"></input></td>
 		</tr>
 		
 		<tr>
 		<td>Telephone Number:</td>
-		<td><div id="teleNum"></div></td>
+		<td><input id="teleNum"></input></td>
 		</tr>
 		
 		<tr>
 		<td>Government Supervisor Name:</td>
-		<td><div id="govSupName"></div></td>
+		<td><input id="govSupName"></input></td>
 		</tr>
 		
 		<tr>
 		<td>Government Supervisor Phone:</td>
-		<td><div id="govSupPhone"></div></td>
+		<td><input id="govSupPhone"></input></td>
 		</tr>
 		
 		<tr>
 		<td>Government Supervisor Email:</td>
-		<td><div id="govSupEmail"></div></td>
+		<td><input id="govSupEmail"></input></td>
 		</tr>
 		
 	</table>
@@ -162,17 +160,30 @@
 var table = null;
 var selectedUser = null;
 
-function approve() {
-	console.log("Approved " + selectedUser.uuid);
+function save() {
+	selectedUser.uuid = document.getElementById("uuid").value;
+    selectedUser.siprtTokenPCC = document.getElementById("pcc").value;
+    selectedUser.uid = document.getElementById("uid").value;
+    selectedUser.firstName = document.getElementById("firstName").value;
+    selectedUser.lastName = document.getElementById("lastName").value;
+    selectedUser.reasonForAccess = document.getElementById("justification").value;
+    selectedUser.lastModified = document.getElementById("regDate").value;
+    selectedUser.uic = document.getElementById("uic").value;
+    selectedUser.officeSymbol = document.getElementById("officeSym").value;
+    selectedUser.organization = document.getElementById("org").value;
+    selectedUser.subOrganization = document.getElementById("subOrg").value;
+    selectedUser.niprEmail = document.getElementById("niprEmail").value;
+    selectedUser.siprEmail = document.getElementById("siprEmail").value;
+    selectedUser.telephoneNumber = document.getElementById("teleNum").value;
+    selectedUser.supervisorName = document.getElementById("govSupName").value;
+    selectedUser.supervisorPhone = document.getElementById("govSupPhone").value;
+    selectedUser.supervisorEmail = document.getElementById("govSupEmail").value;
+    
+    console.log(selectedUser);
+    
+    toggleView(false);
 }
 
-function deny() {
-	console.log("Denied " + selectedUser.uuid);
-}
-
-function sendApproval() {
-	console.log("Email sent " + selectedUser.uuid);
-}
 function toggleView(foo) {
 	if(foo) {
 		document.getElementById("manageAccountList_wrapper").style.display = "none";
@@ -198,24 +209,24 @@ function manageUserView(row) {
 	toggleView(true);
 	console.log("row data=",data);
 	selectedUser = JSON.parse(decodeURIComponent(row));
-    document.getElementById("viewUserHeader").innerHTML = "View User: " + data.firstName + " " + data.lastName;
-    document.getElementById("uuid").innerHTML = data.uuid;
-    document.getElementById("pcc").innerHTML = data.siprtTokenPCC;
-    document.getElementById("uid").innerHTML = data.uid;
-    document.getElementById("firstName").innerHTML = data.firstName;
-    document.getElementById("lastName").innerHTML = data.lastName;
-    document.getElementById("justification").innerHTML = data.reasonForAccess;
-    document.getElementById("regDate").innerHTML = data.lastModified;
-    document.getElementById("uic").innerHTML = data.uic;
-    document.getElementById("officeSym").innerHTML = data.officeSymbol;
-    document.getElementById("org").innerHTML = data.organization;
-    document.getElementById("subOrg").innerHTML = data.subOrganization;
-    document.getElementById("niprEmail").innerHTML = data.niprEmail;
-    document.getElementById("siprEmail").innerHTML = data.siprEmail;
-    document.getElementById("teleNum").innerHTML = data.telephoneNumber;
-    document.getElementById("govSupName").innerHTML = data.supervisorName;
-    document.getElementById("govSupPhone").innerHTML = data.supervisorPhone;
-    document.getElementById("govSupEmail").innerHTML = data.supervisorEmail;	
+    document.getElementById("viewUserHeader").innerHTML = "Edit User: " + data.firstName + " " + data.lastName;
+    document.getElementById("uuid").value = data.uuid;
+    document.getElementById("pcc").value = data.siprtTokenPCC;
+    document.getElementById("uid").value = data.uid;
+    document.getElementById("firstName").value = data.firstName;
+    document.getElementById("lastName").value = data.lastName;
+    document.getElementById("justification").value = data.reasonForAccess;
+    document.getElementById("regDate").value = data.lastModified;
+    document.getElementById("uic").value = data.uic;
+    document.getElementById("officeSym").value = data.officeSymbol;
+    document.getElementById("org").value = data.organization;
+    document.getElementById("subOrg").value = data.subOrganization;
+    document.getElementById("niprEmail").value = data.niprEmail;
+    document.getElementById("siprEmail").value = data.siprEmail;
+    document.getElementById("teleNum").value = data.telephoneNumber;
+    document.getElementById("govSupName").value = data.supervisorName;
+    document.getElementById("govSupPhone").value = data.supervisorPhone;
+    document.getElementById("govSupEmail").value = data.supervisorEmail;	
 	
 }
 
@@ -231,15 +242,10 @@ $(document).ready(function() {
     } );
 	
 	table = $('#manageAccountList').DataTable( {
-        "ajax": '/emds_sso/mockapi/users.json',
-//         "dataSrc" : (json) => {
-//         	console.log(json);
-        	
-//         },
+        "ajax": 'http://my-json-server.typicode.com/lehotskymike/dummy/users',
         "columns": [
         	{ "data": "uid",
         	  "render": function ( data, type, row, meta ) {
-        		  console.log("render delete...data, type, row, meta",data, type, row, meta, row.uid);
 			      return '<a  href="javascript:void(0);" onclick="manageUserView(\'' + encodeURIComponent(JSON.stringify(row)) + '\')"><i class="far fa-edit"></i></a>';
 			    }},
             { "data": "firstName" },
