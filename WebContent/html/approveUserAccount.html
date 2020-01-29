@@ -159,8 +159,6 @@ var table = null;
 var selectedUser = null;
 
 function approve() {
-	console.log("Approved " + selectedUser.uid);
-	
 	/* CHANGE THE API FOR PRODUCTION */ 
     const url = '/emds_sso/submitUserUpdate';
     const param = {
@@ -179,8 +177,6 @@ function approve() {
 }
 
 function deny() {
-	console.log("Denied " + selectedUser.uid);
-	
 	/* CHANGE THE API FOR PRODUCTION */ 
     const url = '/emds_sso/submitUserUpdate';
     const param = {
@@ -199,8 +195,6 @@ function deny() {
 }
 
 function sendApproval() {
-	console.log("Email sent " + selectedUser.uid);
-	
 	/* CHANGE THE API FOR PRODUCTION */ 
     const url = '/emds_sso/submitUserUpdate';
     const param = {
