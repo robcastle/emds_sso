@@ -18,11 +18,11 @@
 
 <div id="viewUserInfo" style="display: none;">
 	<div style="display: inline">
-		<button onClick="save()">Save</button> 
-		<button onClick="enable()">Enable</button> 
-		<button onClick="disable()">Disable</button> 
-		<button onClick="register()">Register</button> 
-		<button onClick="unregister()">Unregister</button> 
+		<button onClick="save()">Update</button> 
+		<button id="enable" onClick="enable()">Enable</button> 
+		<button id="disable" onClick="disable()">Disable</button> 
+		<button id="register" onClick="register()">Register</button> 
+		<button id="unregister" onClick="unregister()">Unregister</button> 
 		<button onClick="toggleView(false)">Close</button>
 	</div>
 	<div>
@@ -167,6 +167,9 @@ var selectedUser = null;
 function disable() {
 	console.log("User Disabled " + selectedUser.uid);
 	
+	document.getElementById("disable").style.display = "none";
+	document.getElementById("enable").style.display = "inline";
+	
 	/* CHANGE THE API FOR PRODUCTION */ 
     const url = '/emds_sso/submitUserUpdate';
     const param = {
@@ -186,6 +189,9 @@ function disable() {
 function enable() {
 	console.log("User Enabled " + selectedUser.uid);
 	
+	document.getElementById("enable").style.display = "none";
+	document.getElementById("disable").style.display = "inline";
+
 	/* CHANGE THE API FOR PRODUCTION */ 
     const url = '/emds_sso/submitUserUpdate';
     const param = {
@@ -205,6 +211,9 @@ function enable() {
 function register() {
 	console.log("User registered " + selectedUser.uid);
 	
+	document.getElementById("register").style.display = "none";
+	document.getElementById("unregister").style.display = "inline";
+
 	/* CHANGE THE API FOR PRODUCTION */ 
     const url = '/emds_sso/submitUserUpdate';
     const param = {
@@ -224,6 +233,9 @@ function register() {
 function unregister() {
 	console.log("User unregistered " + selectedUser.uid);
 	
+	document.getElementById("unregister").style.display = "none";
+	document.getElementById("register").style.display = "inline";
+
 	/* CHANGE THE API FOR PRODUCTION */ 
     const url = '/emds_sso/submitUserUpdate';
     const param = {
@@ -307,7 +319,25 @@ function manageUserView(row) {
     document.getElementById("teleNum").value = data.telephoneNumber;
     document.getElementById("govSupName").value = data.supervisorName;
     document.getElementById("govSupPhone").value = data.supervisorPhone;
-    document.getElementById("govSupEmail").value = data.supervisorEmail;	
+    document.getElementById("govSupEmail").value = data.supervisorEmail;
+    
+    if(data.active == "Y") {
+    	document.getElementById("enable").style.display = "none";
+    	document.getElementById("disable").style.display = "inline";
+    }
+    else {
+    	document.getElementById("disable").style.display = "none";
+    	document.getElementById("enable").style.display = "inline";
+    }
+    
+    if(data.role == "PENDING") {
+    	document.getElementById("unregister").style.display = "none";
+    	document.getElementById("register").style.display = "inline";
+    }
+    else {
+    	document.getElementById("register").style.display = "none";
+    	document.getElementById("unregister").style.display = "inline";
+    }
 	
 }
 
