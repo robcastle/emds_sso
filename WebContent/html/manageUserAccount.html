@@ -19,6 +19,10 @@
 <div id="viewUserInfo" style="display: none;">
 	<div style="display: inline">
 		<button onClick="save()">Save</button> 
+		<button onClick="enable()">Enable</button> 
+		<button onClick="disable()">Disable</button> 
+		<button onClick="register()">Register</button> 
+		<button onClick="unregister()">Unregister</button> 
 		<button onClick="toggleView(false)">Close</button>
 	</div>
 	<div>
@@ -159,6 +163,83 @@
 
 var table = null;
 var selectedUser = null;
+
+function disable() {
+	console.log("User Disabled " + selectedUser.uid);
+	
+	/* CHANGE THE API FOR PRODUCTION */ 
+    const url = '/emds_sso/submitUserUpdate';
+    const param = {
+   		disable: selectedUser.uid
+    };
+
+    $.ajax({
+        url: url,
+        method: "GET", //send it through get method
+        data: param,
+        success: refreshManageAccountList,
+        error: (jqXHR, textStatus, errorThrown) => {
+        	alert("Error " + textStatus + "\n" + errorThrown);
+        }
+    });	
+}
+function enable() {
+	console.log("User Enabled " + selectedUser.uid);
+	
+	/* CHANGE THE API FOR PRODUCTION */ 
+    const url = '/emds_sso/submitUserUpdate';
+    const param = {
+   		enable: selectedUser.uid
+    };
+
+    $.ajax({
+        url: url,
+        method: "GET", //send it through get method
+        data: param,
+        success: refreshManageAccountList,
+        error: (jqXHR, textStatus, errorThrown) => {
+        	alert("Error " + textStatus + "\n" + errorThrown);
+        }
+    });	
+}
+function register() {
+	console.log("User registered " + selectedUser.uid);
+	
+	/* CHANGE THE API FOR PRODUCTION */ 
+    const url = '/emds_sso/submitUserUpdate';
+    const param = {
+   		register: selectedUser.uid
+    };
+
+    $.ajax({
+        url: url,
+        method: "GET", //send it through get method
+        data: param,
+        success: refreshManageAccountList,
+        error: (jqXHR, textStatus, errorThrown) => {
+        	alert("Error " + textStatus + "\n" + errorThrown);
+        }
+    });	
+}
+function unregister() {
+	console.log("User unregistered " + selectedUser.uid);
+	
+	/* CHANGE THE API FOR PRODUCTION */ 
+    const url = '/emds_sso/submitUserUpdate';
+    const param = {
+   		unregister: selectedUser.uid
+    };
+
+    $.ajax({
+        url: url,
+        method: "GET", //send it through get method
+        data: param,
+        success: refreshManageAccountList,
+        error: (jqXHR, textStatus, errorThrown) => {
+        	alert("Error " + textStatus + "\n" + errorThrown);
+        }
+    });	
+}
 
 function save() {
 	selectedUser.uuid = document.getElementById("uuid").innerHTML;

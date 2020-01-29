@@ -159,15 +159,63 @@ var table = null;
 var selectedUser = null;
 
 function approve() {
-	console.log("Approved " + selectedUser.uuid);
+	console.log("Approved " + selectedUser.uid);
+	
+	/* CHANGE THE API FOR PRODUCTION */ 
+    const url = '/emds_sso/submitUserUpdate';
+    const param = {
+        approve: selectedUser.uid
+    };
+
+    $.ajax({
+        url: url,
+        method: "GET", //send it through get method
+        data: param,
+        success: refreshApproveList,
+        error: (jqXHR, textStatus, errorThrown) => {
+        	alert("Error " + textStatus + "\n" + errorThrown);
+        }
+    });	
 }
 
 function deny() {
-	console.log("Denied " + selectedUser.uuid);
+	console.log("Denied " + selectedUser.uid);
+	
+	/* CHANGE THE API FOR PRODUCTION */ 
+    const url = '/emds_sso/submitUserUpdate';
+    const param = {
+        deny: selectedUser.uid
+    };
+
+    $.ajax({
+        url: url,
+        method: "GET", //send it through get method
+        data: param,
+        success: refreshApproveList,
+        error: (jqXHR, textStatus, errorThrown) => {
+        	alert("Error " + textStatus + "\n" + errorThrown);
+        }
+    });	
 }
 
 function sendApproval() {
-	console.log("Email sent " + selectedUser.uuid);
+	console.log("Email sent " + selectedUser.uid);
+	
+	/* CHANGE THE API FOR PRODUCTION */ 
+    const url = '/emds_sso/submitUserUpdate';
+    const param = {
+   		sendApprovalEmail: selectedUser.uid
+    };
+
+    $.ajax({
+        url: url,
+        method: "GET", //send it through get method
+        data: param,
+        success: refreshApproveList,
+        error: (jqXHR, textStatus, errorThrown) => {
+        	alert("Error " + textStatus + "\n" + errorThrown);
+        }
+    });	
 }
 
 function toggleView(foo) {
@@ -259,7 +307,7 @@ $(document).ready(function() {
 /**
  * Function to refresh the list
  */
-const refreshSubscriptionList = (data, textStatus) => { 
+const refreshApproveList = (data, textStatus) => { 
 	table.ajax.reload();
 }
 
