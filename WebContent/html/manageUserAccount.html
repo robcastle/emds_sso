@@ -30,7 +30,7 @@
 
 		<tr>
 		<td>UUID:</td>
-		<td><input id="uuid"></input></td>
+		<td><div id="uuid"></div></td>
 		</tr>
 		
 		<tr>
@@ -161,7 +161,7 @@ var table = null;
 var selectedUser = null;
 
 function save() {
-	selectedUser.uuid = document.getElementById("uuid").value;
+	selectedUser.uuid = document.getElementById("uuid").innerHTML;
     selectedUser.siprtTokenPCC = document.getElementById("pcc").value;
     selectedUser.uid = document.getElementById("uid").value;
     selectedUser.firstName = document.getElementById("firstName").value;
@@ -210,7 +210,7 @@ function manageUserView(row) {
 	console.log("row data=",data);
 	selectedUser = JSON.parse(decodeURIComponent(row));
     document.getElementById("viewUserHeader").innerHTML = "Edit User: " + data.firstName + " " + data.lastName;
-    document.getElementById("uuid").value = data.uuid;
+    document.getElementById("uuid").innerHTML = data.uuid;
     document.getElementById("pcc").value = data.siprtTokenPCC;
     document.getElementById("uid").value = data.uid;
     document.getElementById("firstName").value = data.firstName;
