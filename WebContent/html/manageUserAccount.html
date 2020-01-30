@@ -165,8 +165,6 @@ var table = null;
 var selectedUser = null;
 
 function disable() {
-	console.log("User Disabled " + selectedUser.uid);
-	
 	document.getElementById("disable").style.display = "none";
 	document.getElementById("enable").style.display = "inline";
 	
@@ -187,8 +185,6 @@ function disable() {
     });	
 }
 function enable() {
-	console.log("User Enabled " + selectedUser.uid);
-	
 	document.getElementById("enable").style.display = "none";
 	document.getElementById("disable").style.display = "inline";
 
@@ -209,8 +205,6 @@ function enable() {
     });	
 }
 function register() {
-	console.log("User registered " + selectedUser.uid);
-	
 	document.getElementById("register").style.display = "none";
 	document.getElementById("unregister").style.display = "inline";
 
@@ -231,8 +225,6 @@ function register() {
     });	
 }
 function unregister() {
-	console.log("User unregistered " + selectedUser.uid);
-	
 	document.getElementById("unregister").style.display = "none";
 	document.getElementById("register").style.display = "inline";
 
@@ -272,7 +264,34 @@ function save() {
     selectedUser.supervisorPhone = document.getElementById("govSupPhone").value;
     selectedUser.supervisorEmail = document.getElementById("govSupEmail").value;
     
-    console.log(selectedUser);
+    /* CHANGE THE API FOR PRODUCTION */ 
+    const url = '/emds_sso/submitUserUpdate';
+    const param = {
+		    edit: selectedUser.uid,
+			firstName: selectedUser.firstName,
+			lastName: selectedUser.lastName,
+			niprEmail: selectedUser.niprEmail,
+			officeSymbol: selectedUser.officeSymbol,
+			organization: selectedUser.organization,
+			siprEmail: selectedUser.siprEmail,
+			subOrganization: selectedUser.subOrganization,
+			supervisorEmail: selectedUser.supervisorEmail,
+			supervisorPhone: selectedUser.superviserPhone,
+			supervisorName: selectedUser.supervisorName,
+			telephoneNumber: selectedUser.telephoneNumber,
+			uic: selectedUser.uic,
+			roles: selectedUser.roles.join()
+    };
+
+    $.ajax({
+        url: url,
+        method: "GET", //send it through get method
+        data: param,
+        success: refreshManageAccountList,
+        error: (jqXHR, textStatus, errorThrown) => {
+        	alert("Error " + textStatus + "\n" + errorThrown);
+        }
+    });	
     
     toggleView(false);
 }
@@ -300,7 +319,6 @@ function toggleView(foo) {
 function manageUserView(row) {
  	var data=JSON.parse(decodeURIComponent(row));
 	toggleView(true);
-	console.log("row data=",data);
 	selectedUser = JSON.parse(decodeURIComponent(row));
     document.getElementById("viewUserHeader").innerHTML = "Edit User: " + data.firstName + " " + data.lastName;
     document.getElementById("uuid").innerHTML = data.uuid;
