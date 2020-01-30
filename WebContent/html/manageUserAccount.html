@@ -84,12 +84,12 @@
 		
 		<tr>
 		<td>Organization:</td>
-		<td><input id="org"></input></td>
+		<td><select id="org" onChange="updateSubOrg()"></select></td>
 		</tr>
 		
 		<tr>
 		<td>Sub Organization:</td>
-		<td><input id="subOrg"></input></td>
+		<td><select id="subOrg"></select></td>
 		</tr>
 		
 		<tr style=" background-color: black;"><td>
@@ -200,9 +200,79 @@ $.ajax({
     	  }
     	}
     	
-   	  addItem($('#root'), roles);
+		addItem($('#root'), roles);
+		
   	}
 });
+
+var orgs = null;
+$.ajax({
+    url: "http://my-json-server.typicode.com/lehotskymike/dummy/orgs",
+    method: "GET",
+    error: (jqXHR, textStatus, errorThrown) => {
+    	alert("Error " + textStatus + "\n" + errorThrown);
+    },
+    success: function(response){
+    	orgs = response.data;
+    	
+    	function addItem(parentUL, branch) {
+      	  for (var key in branch) {
+      	    var item = branch[key].children;
+      	    let name = '';
+
+      	    $item = $('<option>', {
+      	      id: branch[key].displayName,
+      	      value: branch[key].displayName
+      	    });
+      	    
+
+    	    $item.append($('<label>', {
+    	      for: branch[key].displayName,
+    	      text: branch[key].displayName
+    	    }));
+      	    parentUL.append($item);
+      	  }
+      	}
+      	
+   	  	addItem($('#org'), orgs);
+   	  	
+		updateSubOrg();
+  	}
+});
+
+function updateSubOrg() {
+	var subOrgs = null;
+	var selectedOrg = document.getElementById("org").value;
+	for(var x in orgs) {
+		if(orgs[x].displayName == selectedOrg) {
+			subOrgs = orgs[x].suborganizations;
+			break;
+		}
+	}
+	
+	document.getElementById("subOrg").innerHTML = null;
+	
+	function addItem(parentUL, branch) {
+    	  for (var key in branch) {
+    	    var item = branch[key].children;
+    	    let name = '';
+
+    	    $item = $('<option>', {
+    	      id: branch[key].displayName,
+    	      value: branch[key].displayName
+    	    });
+    	    
+
+  	    $item.append($('<label>', {
+  	      for: branch[key].displayName,
+  	      text: branch[key].displayName
+  	    }));
+    	    parentUL.append($item);
+    	  }
+    	}
+	
+ 	  	addItem($('#subOrg'), subOrgs);	
+}
 
 var table = null;
 var selectedUser = null;
@@ -380,8 +450,11 @@ function manageUserView(row) {
     document.getElementById("regDate").value = data.lastModified;
     document.getElementById("uic").value = data.uic;
     document.getElementById("officeSym").value = data.officeSymbol;
+    
     document.getElementById("org").value = data.organization;
+    updateSubOrg(); //setting the value programatically doesn't trigger the onChange event
     document.getElementById("subOrg").value = data.subOrganization;
+        
     document.getElementById("niprEmail").value = data.niprEmail;
     document.getElementById("siprEmail").value = data.siprEmail;
     document.getElementById("teleNum").value = data.telephoneNumber;
