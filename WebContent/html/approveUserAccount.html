@@ -169,10 +169,10 @@ function approve() {
         url: url,
         method: "GET", //send it through get method
         data: param,
-        success: refreshApproveList,
-        error: (jqXHR, textStatus, errorThrown) => {
-        	alert("Error " + textStatus + "\n" + errorThrown);
-        }
+        success: refreshApproveList //,
+//         error: (jqXHR, textStatus, errorThrown) => {
+//         	alert("Error " + textStatus + "\n" + errorThrown);
+//         }
     });	
 }
 
@@ -187,10 +187,10 @@ function deny() {
         url: url,
         method: "GET", //send it through get method
         data: param,
-        success: refreshApproveList,
-        error: (jqXHR, textStatus, errorThrown) => {
-        	alert("Error " + textStatus + "\n" + errorThrown);
-        }
+        success: refreshApproveList //,
+//         error: (jqXHR, textStatus, errorThrown) => {
+//         	alert("Error " + textStatus + "\n" + errorThrown);
+//         }
     });	
 }
 
@@ -205,10 +205,10 @@ function sendApproval() {
         url: url,
         method: "GET", //send it through get method
         data: param,
-        success: refreshApproveList,
-        error: (jqXHR, textStatus, errorThrown) => {
-        	alert("Error " + textStatus + "\n" + errorThrown);
-        }
+        success: refreshApproveList //,
+//         error: (jqXHR, textStatus, errorThrown) => {
+//         	alert("Error " + textStatus + "\n" + errorThrown);
+//         }
     });	
 }
 
