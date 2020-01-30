@@ -465,6 +465,8 @@ function manageUserView(row) {
 	for(var key in roles) {
 		if(data.roles.includes(roles[key]))
 			document.getElementById(roles[key] + "_input").checked = true;
+		else
+			document.getElementById(roles[key] + "_input").checked = false;
 	}
         
     if(data.active == "Y") {
