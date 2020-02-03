@@ -205,9 +205,6 @@ var orgs = null;
 $.ajax({
     url: "http://my-json-server.typicode.com/lehotskymike/dummy/orgs",
     method: "GET",
-    error: (jqXHR, textStatus, errorThrown) => {
-    	alert("Error " + textStatus + "\n" + errorThrown);
-    },
     success: function(response){
     	orgs = response.data;
     	
@@ -287,10 +284,7 @@ function disable() {
         url: url,
         method: "GET", //send it through get method
         data: param,
-        success: refreshManageAccountList,
-        error: (jqXHR, textStatus, errorThrown) => {
-        	alert("Error " + textStatus + "\n" + errorThrown);
-        }
+        success: refreshManageAccountList
     });	
 }
 function enable() {
@@ -307,10 +301,7 @@ function enable() {
         url: url,
         method: "GET", //send it through get method
         data: param,
-        success: refreshManageAccountList,
-        error: (jqXHR, textStatus, errorThrown) => {
-        	alert("Error " + textStatus + "\n" + errorThrown);
-        }
+        success: refreshManageAccountList
     });	
 }
 function register() {
@@ -327,10 +318,7 @@ function register() {
         url: url,
         method: "GET", //send it through get method
         data: param,
-        success: refreshManageAccountList,
-        error: (jqXHR, textStatus, errorThrown) => {
-        	alert("Error " + textStatus + "\n" + errorThrown);
-        }
+        success: refreshManageAccountList
     });	
 }
 function unregister() {
@@ -347,10 +335,7 @@ function unregister() {
         url: url,
         method: "GET", //send it through get method
         data: param,
-        success: refreshManageAccountList,
-        error: (jqXHR, textStatus, errorThrown) => {
-        	alert("Error " + textStatus + "\n" + errorThrown);
-        }
+        success: refreshManageAccountList
     });	
 }
 
@@ -403,10 +388,7 @@ function save() {
         url: url,
         method: "GET", //send it through get method
         data: param,
-        success: refreshManageAccountList,
-        error: (jqXHR, textStatus, errorThrown) => {
-        	alert("Error " + textStatus + "\n" + errorThrown);
-        }
+        success: refreshManageAccountList
     });	
     
     toggleView(false);
