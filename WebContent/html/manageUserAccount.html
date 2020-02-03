@@ -167,9 +167,6 @@ var roles = null;
 $.ajax({
     url: "http://my-json-server.typicode.com/lehotskymike/dummy/roles",
     method: "GET",
-    error: (jqXHR, textStatus, errorThrown) => {
-    	alert("Error " + textStatus + "\n" + errorThrown);
-    },
     success: function(response){
     	roles = response.data;
 
@@ -419,7 +416,7 @@ function manageUserView(row) {
 	selectedUser = JSON.parse(decodeURIComponent(row));
 	const url = '/emds_sso/users';
     const param = {
-   		unregister: selectedUser.uid
+   		uid: selectedUser.uid
     };
     
 	$.ajax({

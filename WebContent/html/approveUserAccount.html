@@ -223,7 +223,7 @@ function approveUserView(row) {
 	selectedUser = JSON.parse(decodeURIComponent(row));
 	const url = '/emds_sso/users';
     const param = {
-   		unregister: selectedUser.uid
+   		uid: selectedUser.uid
     };
     
 	$.ajax({
