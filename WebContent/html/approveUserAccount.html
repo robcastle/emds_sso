@@ -135,8 +135,6 @@
                 <th>Last Name</th>
                 <th>UIC</th>
                 <th>Office Symbol</th>
-                <th>Organization</th>
-                <th>Sub Organization</th>
                 <th>Registration Date</th>
 
             </tr>
@@ -148,8 +146,6 @@
                 <th>Last Name</th>
                 <th>UIC</th>
                 <th>Office Symbol</th>
-                <th>Organization</th>
-                <th>Sub Organization</th>
                 <th>Registration Date</th>
             </tr>
         </tfoot>
@@ -232,27 +228,39 @@ function toggleView(foo) {
  * Function switch view
  */
 function approveUserView(row) {
-    var data=JSON.parse(decodeURIComponent(row));
     toggleView(true);
 	selectedUser = JSON.parse(decodeURIComponent(row));
-    document.getElementById("viewUserHeader").innerHTML = "View User: " + data.firstName + " " + data.lastName;
-    document.getElementById("uuid").innerHTML = data.uuid;
-    document.getElementById("pcc").innerHTML = data.siprtTokenPCC;
-    document.getElementById("uid").innerHTML = data.uid;
-    document.getElementById("firstName").innerHTML = data.firstName;
-    document.getElementById("lastName").innerHTML = data.lastName;
-    document.getElementById("justification").innerHTML = data.reasonForAccess;
-    document.getElementById("regDate").innerHTML = data.lastModified;
-    document.getElementById("uic").innerHTML = data.uic;
-    document.getElementById("officeSym").innerHTML = data.officeSymbol;
-    document.getElementById("org").innerHTML = data.organization;
-    document.getElementById("subOrg").innerHTML = data.subOrganization;
-    document.getElementById("niprEmail").innerHTML = data.niprEmail;
-    document.getElementById("siprEmail").innerHTML = data.siprEmail;
-    document.getElementById("teleNum").innerHTML = data.telephoneNumber;
-    document.getElementById("govSupName").innerHTML = data.supervisorName;
-    document.getElementById("govSupPhone").innerHTML = data.supervisorPhone;
-    document.getElementById("govSupEmail").innerHTML = data.supervisorEmail;
+	const url = '/emds_sso/users';
+    const param = {
+   		unregister: selectedUser.uid
+    };
+    
+	$.ajax({
+        url: url,
+        method: "GET", //send it through get method
+        data: param,
+        success: function(response) {
+        	selectedUser = response.data;
+        }
+    });
+    document.getElementById("viewUserHeader").innerHTML = "View User: " + selectedUser.firstName + " " + selectedUser.lastName;
+    document.getElementById("uuid").innerHTML = selectedUser.uuid;
+    document.getElementById("pcc").innerHTML = selectedUser.siprtTokenPCC;
+    document.getElementById("uid").innerHTML = selectedUser.uid;
+    document.getElementById("firstName").innerHTML = selectedUser.firstName;
+    document.getElementById("lastName").innerHTML = selectedUser.lastName;
+    document.getElementById("justification").innerHTML = selectedUser.reasonForAccess;
+    document.getElementById("regDate").innerHTML = selectedUser.lastModified;
+    document.getElementById("uic").innerHTML = selectedUser.uic;
+    document.getElementById("officeSym").innerHTML = selectedUser.officeSymbol;
+    document.getElementById("org").innerHTML = selectedUser.organization;
+    document.getElementById("subOrg").innerHTML = selectedUser.subOrganization;
+    document.getElementById("niprEmail").innerHTML = selectedUser.niprEmail;
+    document.getElementById("siprEmail").innerHTML = selectedUser.siprEmail;
+    document.getElementById("teleNum").innerHTML = selectedUser.telephoneNumber;
+    document.getElementById("govSupName").innerHTML = selectedUser.supervisorName;
+    document.getElementById("govSupPhone").innerHTML = selectedUser.supervisorPhone;
+    document.getElementById("govSupEmail").innerHTML = selectedUser.supervisorEmail;
     
 }
 
@@ -277,8 +285,6 @@ $(document).ready(function() {
             { "data": "lastName" },
             { "data": "uic" },
             { "data": "officeSymbol" },
-            { "data": "organization" },
-            { "data": "subOrganization" },
             { "data": "lastModified" }
           ]
     } );
